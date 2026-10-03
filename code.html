@@ -1,0 +1,995 @@
+<!DOCTYPE html><html class="scroll-smooth" lang="en"><head>
+<meta charset="utf-8">
+<meta content="width=device-width, initial-scale=1.0" name="viewport">
+<title>NEO-SCOPE // Near-Earth Object Intelligence Platform</title>
+<!-- Google Fonts: Bricolage Grotesque, Instrument Sans, IBM Plex Mono -->
+<link href="https://fonts.googleapis.com" rel="preconnect">
+<link crossorigin="" href="https://fonts.gstatic.com" rel="preconnect">
+<link href="https://fonts.googleapis.com/css2?family=Bricolage+Grotesque:opsz,wght@12..96,400;500;600;700;800&amp;family=IBM+Plex+Mono:ital,wght@0,400;0,500;0,600;1,400&amp;family=Instrument+Sans:ital,wght@0,400;0,500;0,600;0,700;1,400&amp;display=swap" rel="stylesheet">
+<!-- Tailwind CSS CDN with forms and container queries -->
+<script src="https://cdn.tailwindcss.com?plugins=forms,container-queries"></script>
+<!-- Tailwind Configuration -->
+<script data-purpose="tailwind-config">
+    tailwind.config = {
+      theme: {
+        extend: {
+          colors: {
+            space: {
+              950: '#020306',
+              900: '#060913',
+              850: '#0B0F1C',
+              800: '#111728',
+            },
+            cyan: {
+              glow: '#00F0FF',
+              neon: '#38BDF8',
+              ice: '#7DD3FC',
+              dim: 'rgba(0, 240, 255, 0.15)',
+            },
+            hazard: {
+              red: '#F43F5E',
+              amber: '#F59E0B',
+              coral: '#FB7185',
+              emerald: '#10B981',
+            }
+          },
+          fontFamily: {
+            display: ['"Bricolage Grotesque"', 'sans-serif'],
+            sans: ['"Instrument Sans"', 'sans-serif'],
+            mono: ['"IBM Plex Mono"', 'monospace'],
+          },
+          animation: {
+            'spin-slow': 'spin 38s linear infinite',
+            'spin-reverse': 'spinReverse 46s linear infinite',
+            'pulse-glow': 'pulseGlow 4s ease-in-out infinite',
+            'float-subtle': 'floatSubtle 6s ease-in-out infinite',
+            'orbit-slow': 'orbitSweep 24s linear infinite',
+          },
+          keyframes: {
+            spinReverse: {
+              '0%': { transform: 'rotate(360deg)' },
+              '100%': { transform: 'rotate(0deg)' },
+            },
+            pulseGlow: {
+              '0%, 100%': { opacity: '0.85', transform: 'scale(1)' },
+              '50%': { opacity: '0.4', transform: 'scale(1.05)' },
+            },
+            floatSubtle: {
+              '0%, 100%': { transform: 'translateY(0px)' },
+              '50%': { transform: 'translateY(-8px)' },
+            },
+            orbitSweep: {
+              '0%': { strokeDashoffset: '1000' },
+              '100%': { strokeDashoffset: '0' },
+            }
+          }
+        }
+      }
+    }
+  </script>
+<!-- Custom Styles: Ultra-refined liquid glass & scientific atmospheric void -->
+<style data-purpose="refined-glass-atmospheres">
+    body {
+      background-color: #020306;
+      color: #E2E8F0;
+      font-family: 'Instrument Sans', sans-serif;
+      overflow-x: hidden;
+    }
+
+    ::selection {
+      background: #00F0FF;
+      color: #020306;
+    }
+
+    /* Refined Liquid Glass - strictly restrained, non-boxy specular reflections */
+    .liquid-panel {
+      background: linear-gradient(135deg, rgba(13, 19, 32, 0.55) 0%, rgba(5, 8, 16, 0.72) 100%);
+      backdrop-filter: blur(20px);
+      -webkit-backdrop-filter: blur(20px);
+      border: 1px solid rgba(255, 255, 255, 0.08);
+      box-shadow: 0 30px 60px -12px rgba(0, 0, 0, 0.75), inset 0 1px 0 rgba(255, 255, 255, 0.12), inset 0 0 20px rgba(0, 240, 255, 0.03);
+    }
+
+    .liquid-panel-glow {
+      background: linear-gradient(145deg, rgba(15, 23, 42, 0.6) 0%, rgba(3, 7, 18, 0.75) 100%);
+      backdrop-filter: blur(24px);
+      -webkit-backdrop-filter: blur(24px);
+      border: 1px solid rgba(0, 240, 255, 0.22);
+      box-shadow: 0 24px 50px rgba(0, 0, 0, 0.8), inset 0 1px 0 rgba(125, 211, 252, 0.28), 0 0 40px rgba(0, 240, 255, 0.08);
+    }
+
+    .glass-pill {
+      background: rgba(11, 16, 28, 0.6);
+      backdrop-filter: blur(14px);
+      -webkit-backdrop-filter: blur(14px);
+      border: 1px solid rgba(255, 255, 255, 0.1);
+    }
+
+    .liquid-button-primary {
+      background: linear-gradient(135deg, rgba(0, 240, 255, 0.24) 0%, rgba(14, 165, 233, 0.08) 100%);
+      border: 1px solid rgba(0, 240, 255, 0.5);
+      box-shadow: 0 0 24px rgba(0, 240, 255, 0.22), inset 0 1px 0 rgba(255, 255, 255, 0.35);
+      transition: all 0.3s cubic-bezier(0.16, 1, 0.3, 1);
+    }
+    .liquid-button-primary:hover {
+      background: linear-gradient(135deg, rgba(0, 240, 255, 0.38) 0%, rgba(14, 165, 233, 0.22) 100%);
+      border-color: rgba(0, 240, 255, 0.85);
+      box-shadow: 0 0 36px rgba(0, 240, 255, 0.45), inset 0 1px 0 rgba(255, 255, 255, 0.55);
+      transform: translateY(-1px);
+    }
+
+    .liquid-button-ghost {
+      background: rgba(255, 255, 255, 0.02);
+      border: 1px solid rgba(255, 255, 255, 0.12);
+      backdrop-filter: blur(14px);
+      transition: all 0.25s cubic-bezier(0.16, 1, 0.3, 1);
+    }
+    .liquid-button-ghost:hover {
+      background: rgba(255, 255, 255, 0.06);
+      border-color: rgba(255, 255, 255, 0.28);
+      transform: translateY(-1px);
+    }
+
+    /* Seamless earth mask blending with deep space void */
+    .earth-mask {
+      mask-image: radial-gradient(circle at 68% 46%, black 46%, rgba(0,0,0,0.65) 66%, transparent 84%);
+      -webkit-mask-image: radial-gradient(circle at 68% 46%, black 46%, rgba(0,0,0,0.65) 66%, transparent 84%);
+    }
+
+    /* Continuous luminous pipeline stream */
+    .pipeline-beam {
+      background: linear-gradient(90deg, rgba(0,240,255,0.05) 0%, rgba(0,240,255,0.85) 45%, rgba(56,189,248,0.9) 70%, rgba(16,185,129,0.8) 100%);
+      box-shadow: 0 0 18px rgba(0,240,255,0.5);
+    }
+
+    /* Subtle astronomical grid dots */
+    .space-grid-field {
+      background-size: 60px 60px;
+      background-image: radial-gradient(circle, rgba(56, 189, 248, 0.06) 1px, transparent 1px);
+    }
+  </style>
+</head>
+<body class="bg-space-950 text-slate-200 antialiased font-sans selection:bg-cyan-glow selection:text-black">
+<!-- BEGIN: NavigationBar -->
+<header class="fixed top-0 left-0 w-full z-50 px-4 md:px-8 py-5 transition-all duration-300" data-purpose="floating-navbar">
+<div class="max-w-7xl mx-auto flex items-center justify-between px-6 py-3 rounded-full liquid-panel border border-white/10 backdrop-blur-2xl">
+<!-- Brand / Logomark -->
+<a class="flex items-center space-x-3.5 group" data-purpose="brand-link" href="#">
+<div class="relative w-8 h-8 flex items-center justify-center">
+<div class="absolute inset-0 rounded-full border border-cyan-neon/35 animate-spin-slow"></div>
+<div class="w-3 h-3 rounded-full bg-cyan-glow shadow-[0_0_14px_#00F0FF]"></div>
+<div class="absolute -top-0.5 right-0.5 w-1.5 h-1.5 rounded-full bg-cyan-ice animate-ping"></div>
+</div>
+<div class="flex flex-col">
+<span class="font-display font-extrabold text-sm tracking-[0.24em] text-white group-hover:text-cyan-ice transition-colors">NEO-SCOPE</span>
+<span class="font-mono text-[9px] tracking-widest text-cyan-neon/60 -mt-0.5 uppercase">ORBITAL INTEL</span>
+</div>
+</a>
+<!-- Center Nav Links (Instrument Sans, editorial tracking) -->
+<nav class="hidden lg:flex items-center space-x-9 text-xs tracking-wider uppercase font-medium text-slate-300" data-purpose="primary-navigation">
+<a class="text-white hover:text-cyan-glow transition-colors relative py-1" href="#hero">
+        Explore
+        <span class="absolute bottom-0 left-0 w-full h-[2px] bg-gradient-to-r from-cyan-glow to-cyan-neon rounded-full shadow-[0_0_10px_#00F0FF]"></span>
+</a>
+<a class="hover:text-cyan-glow transition-colors text-slate-400" href="#live-radar">Live Radar</a>
+<a class="hover:text-cyan-glow transition-colors text-slate-400" href="#analytics">Analytics</a>
+<a class="hover:text-cyan-glow transition-colors text-slate-400" href="#risk-lab">Risk Lab</a>
+<a class="hover:text-cyan-glow transition-colors text-slate-400" href="#methodology">Methodology</a>
+</nav>
+<!-- Right Controls: Status & Search -->
+<div class="flex items-center space-x-3">
+<!-- Live Data Pill -->
+<div class="flex items-center space-x-2 px-3.5 py-1.5 rounded-full glass-pill border border-emerald-500/25 bg-emerald-500/5 text-xs font-sans" data-purpose="live-status">
+<span class="w-1.5 h-1.5 rounded-full bg-hazard-emerald shadow-[0_0_8px_#10B981] animate-pulse"></span>
+<span class="text-slate-300 font-medium tracking-tight">LIVE DATA <span class="text-slate-600">//</span> <span class="font-mono text-[11px] text-cyan-ice">NASA JPL NeoWs</span></span>
+</div>
+<button aria-label="Search Catalog" class="w-9 h-9 rounded-full glass-pill flex items-center justify-center text-slate-400 hover:text-cyan-glow hover:border-cyan-neon/40 transition-colors">
+<svg class="w-3.5 h-3.5" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+<path d="M21 21l-6-6m2-5a7 7 0 11-14 0 7 7 0 0114 0z" stroke-linecap="round" stroke-linejoin="round" stroke-width="2"></path>
+</svg>
+</button>
+</div>
+</div>
+</header>
+<!-- END: NavigationBar -->
+<main>
+<!-- BEGIN: HeroSection -->
+<section class="relative min-h-screen flex items-center pt-28 pb-20 overflow-hidden space-grid-field" data-purpose="hero-earth" id="hero">
+<!-- Seamless Earth Imagery with Electric Cyan Rim Rayleigh Scatter -->
+<div class="absolute inset-0 pointer-events-none select-none z-0 overflow-hidden" data-purpose="earth-visual-container" style="background: rgb(2, 3, 6);"><img alt="NASA orbital photography style view of Earth from space with razor-thin atmospheric rim" class="w-full h-full object-cover object-right pointer-events-none" src="https://lh3.googleusercontent.com/aida-public/AB6AXuCXQPqYB27sxkFN311nMhHudmbMBdq1sEgC0z1kgljEmS-fxHImo2ZZy9Axpe2YJUc-11M9epuffPD3XfV9_9h_nd1hcO-MFo52Hu9evpmDabS1xQYvn3EmdknQqdyFw_pcZCdm_msNAmnfO8876ycDCJGKl5WbUpdDtnVkQ8wavh7GlnRKq5fmVUL4zPBvrTGBmhnmI6eWs7sR1E1aMSAgeM2Zr6TRGeL58XJIOCCTHogApyQX7G3s" style="mask-image: linear-gradient(to right, transparent 0%, transparent 22%, rgba(0,0,0,0.4) 38%, black 60%, black 100%); -webkit-mask-image: linear-gradient(to right, transparent 0%, transparent 22%, rgba(0,0,0,0.4) 38%, black 60%, black 100%);"><div class="absolute right-0 top-1/4 w-[500px] h-[500px] rounded-full bg-cyan-neon/10 blur-[140px] pointer-events-none"></div></div>
+<!-- Hero Content -->
+<div class="relative z-10 max-w-7xl mx-auto px-6 lg:px-12 w-full flex items-center min-h-[75vh]"><div class="w-full lg:w-[48%] space-y-8 pt-8 lg:pt-0"><div class="inline-flex items-center space-x-2.5 px-3.5 py-1.5 rounded-full glass-pill border-cyan-neon/30 text-xs font-mono tracking-widest text-cyan-ice"><span class="w-1.5 h-1.5 rounded-full bg-cyan-glow shadow-[0_0_8px_#00F0FF]"></span><span class="">NEAR-EARTH OBJECT INTELLIGENCE</span></div><h1 class="font-display text-5xl sm:text-6xl md:text-7xl xl:text-[5.4rem] font-extrabold tracking-[-0.035em] leading-[0.93] text-white">THE SPACE<br>AROUND US<br><span class="text-transparent bg-clip-text bg-gradient-to-r from-white via-cyan-ice to-cyan-glow drop-shadow-[0_0_40px_rgba(0,240,255,0.4)]">ISN'T EMPTY.</span></h1><p class="text-slate-300 text-lg md:text-xl font-normal leading-relaxed max-w-xl">Explore Near-Earth Objects through NASA telemetry, machine learning, and transparent risk analytics.</p><div class="flex flex-wrap items-center gap-4 pt-2"><a class="liquid-button-primary px-8 py-3.5 rounded-full text-xs font-semibold tracking-wider text-white uppercase flex items-center space-x-2.5 group font-sans" href="#live-radar"><span class="">EXPLORE NEOS</span><svg class="w-4 h-4 text-cyan-glow transform group-hover:translate-x-1 group-hover:-translate-y-0.5 transition-transform" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path d="M14 5l7 7m0 0l-7 7m7-7H3" stroke-linecap="round" stroke-linejoin="round" stroke-width="2.2"></path></svg></a><a class="liquid-button-ghost px-7 py-3.5 rounded-full text-xs font-medium tracking-wider text-slate-300 hover:text-white uppercase flex items-center space-x-2.5 font-sans" href="#methodology"><svg class="w-4 h-4 text-cyan-ice" fill="currentColor" viewBox="0 0 24 24"><path d="M8 5v14l11-7z"></path></svg><span class="">HOW IT WORKS</span></a></div><div class="pt-8 flex flex-wrap items-center justify-between border-t border-white/10 text-xs font-mono text-slate-400 gap-4 max-w-xl"><div class="flex items-center space-x-2"><span class="text-cyan-neon font-medium">COORD:</span><span class="text-slate-200">14h 29m 42s / -62° 40' 46"</span><span class="text-slate-600">|</span><span class="text-slate-400">JPL HORIZONS</span></div><div class="flex items-center space-x-2 text-slate-400"><span class="w-1.5 h-1.5 rounded-full bg-cyan-glow"></span><span class="">EARTH REF: 0.0000° N, 0.0000° E</span></div></div></div></div>
+<!-- Mouse Scroll Indicator -->
+<div class="absolute bottom-6 left-1/2 -translate-x-1/2 hidden md:flex flex-col items-center space-y-2 pointer-events-none opacity-60">
+<div class="w-4 h-7 rounded-full border border-cyan-neon/30 flex items-start justify-center p-1">
+<div class="w-1 h-2 rounded-full bg-cyan-glow animate-bounce"></div>
+</div>
+<span class="text-[9px] font-mono tracking-widest uppercase text-slate-400">SCROLL TO EXPLORE</span>
+</div>
+</section>
+<!-- END: HeroSection -->
+<!-- BEGIN: LiveRadarSection (Dominant Immersive Orbital Field) -->
+<section class="py-28 px-4 sm:px-6 lg:px-12 relative border-t border-white/5 bg-space-950 overflow-hidden" data-purpose="live-neo-explorer" id="live-radar">
+<div class="max-w-7xl mx-auto space-y-8">
+<!-- Section Editorial Header -->
+<div class="flex flex-col md:flex-row md:items-end justify-between gap-6 pb-2">
+<div class="space-y-2">
+<div class="inline-flex items-center space-x-2 text-xs font-mono text-cyan-neon tracking-wider uppercase">
+<span class="w-2 h-2 rounded-full bg-cyan-glow"></span>
+<span class="">PROXIMITY OBSERVATORY</span>
+</div>
+<h2 class="font-display text-4xl sm:text-5xl lg:text-6xl font-extrabold tracking-tight text-white">WHAT'S PASSING BY?</h2>
+</div>
+<p class="text-sm font-sans text-slate-400 max-w-md leading-relaxed">
+          Interactive ephemeris field projecting true physical orbital inclinations and close approach distances within 0.15 Astronomical Units (AU).
+        </p>
+</div>
+<!-- Full-Width Immersive Orbital Field Visual (No boxy 3-card repetition) -->
+<div class="relative w-full rounded-3xl liquid-panel border border-white/10 p-6 md:p-10 min-h-[620px] overflow-hidden flex flex-col justify-between" data-purpose="orbital-ephemeris-stage">
+<!-- Deep Void Atmosphere Background Glows -->
+<div class="absolute inset-0 pointer-events-none">
+<div class="absolute left-1/3 top-1/2 -translate-x-1/2 -translate-y-1/2 w-[580px] h-[580px] rounded-full bg-cyan-neon/10 blur-[130px]"></div>
+<div class="absolute left-1/3 top-1/2 -translate-x-1/2 -translate-y-1/2 w-[300px] h-[300px] rounded-full bg-blue-600/15 blur-[80px]"></div>
+</div>
+<!-- Top Status HUD inside Orbital Field -->
+<div class="relative z-20 flex flex-wrap items-center justify-between gap-4 text-xs font-mono">
+<div class="flex items-center space-x-3">
+<span class="px-3 py-1 rounded-full bg-space-950/80 border border-white/15 text-cyan-ice">
+              SCALE: 0.15 AU (~22.4M KM)
+            </span>
+<span class="text-slate-500 hidden sm:inline">//</span>
+<span class="text-slate-400 hidden sm:inline">FRAME: J2000 HELIOCENTRIC</span>
+</div>
+<div class="flex items-center space-x-4">
+<span class="flex items-center space-x-1.5"><span class="w-2 h-2 rounded-full bg-hazard-red"></span><span class="text-slate-300 font-sans text-xs">Potentially Hazardous (PHA)</span></span>
+<span class="flex items-center space-x-1.5"><span class="w-2 h-2 rounded-full bg-cyan-ice"></span><span class="text-slate-300 font-sans text-xs">Nominal Specimen</span></span>
+</div>
+</div>
+<!-- Interactive Orbital Stage: Elliptical Trajectories + Moving Nodes + Floating Dossier -->
+<div class="relative z-10 grid grid-cols-1 lg:grid-cols-12 gap-8 items-center my-6 flex-1">
+<!-- Orbital Canvas Graphic (Spans 8 cols) -->
+<div class="lg:col-span-8 relative h-[440px] sm:h-[480px] flex items-center justify-center">
+<!-- Concentric Orbital Scale Rings (0.05, 0.10, 0.15 AU) -->
+<div class="absolute inset-0 flex items-center justify-center pointer-events-none">
+<!-- Ring 0.05 AU (Geostationary / Lunar Boundary) -->
+<div class="w-[140px] h-[140px] rounded-full border border-cyan-neon/25 relative flex items-start justify-center">
+<span class="text-[9px] font-mono text-cyan-neon/50 -mt-2 bg-space-950 px-1">0.05 AU</span>
+</div>
+<!-- Ring 0.10 AU -->
+<div class="w-[280px] h-[280px] rounded-full border border-white/10 relative flex items-start justify-center">
+<span class="text-[9px] font-mono text-slate-500 -mt-2 bg-space-950 px-1">0.10 AU</span>
+</div>
+<!-- Ring 0.15 AU -->
+<div class="w-[430px] h-[430px] rounded-full border border-dashed border-cyan-neon/15 relative flex items-start justify-center">
+<span class="text-[9px] font-mono text-cyan-neon/40 -mt-2 bg-space-950 px-1">0.15 AU</span>
+</div>
+<!-- Luminous Elliptical Orbits with inclination tilt -->
+<svg class="absolute w-[500px] h-[500px] overflow-visible pointer-events-none" viewBox="0 0 500 500">
+<!-- Apophis Elliptical Orbit (Tilted & Highly Eccentric) -->
+<ellipse cx="240" cy="250" fill="none" rx="190" ry="110" stroke="rgba(244, 63, 94, 0.45)" stroke-dasharray="4 4" stroke-width="1.4" transform="rotate(-28 240 250)"></ellipse>
+<!-- Bennu Orbit -->
+<ellipse cx="250" cy="250" fill="none" rx="160" ry="140" stroke="rgba(245, 158, 11, 0.35)" stroke-width="1.2" transform="rotate(18 250 250)"></ellipse>
+<!-- Toutatis Orbit -->
+<ellipse cx="260" cy="250" fill="none" rx="220" ry="125" stroke="rgba(56, 189, 248, 0.3)" stroke-width="1.2" transform="rotate(42 260 250)"></ellipse>
+<!-- Connecting Vector Line from Center/Orbit to Apophis -->
+<line opacity="0.7" stroke="#00F0FF" stroke-dasharray="2 3" stroke-width="1.2" x1="250" x2="330" y1="250" y2="185"></line>
+</svg>
+<!-- Central Earth Anchor -->
+<div class="relative z-20 w-8 h-8 rounded-full bg-blue-600 shadow-[0_0_24px_#38BDF8] flex items-center justify-center border-2 border-white/90">
+<span class="text-[10px] font-mono font-bold text-white">⊕</span>
+<span class="absolute -bottom-5 text-[9px] font-mono text-cyan-ice whitespace-nowrap">EARTH (TERRA)</span>
+</div>
+</div>
+<!-- Interactive Clickable NEO Nodes placed on orbits -->
+<!-- 99942 Apophis (Selected Active Target) -->
+<button class="absolute top-[38%] left-[64%] z-30 group -translate-x-1/2 -translate-y-1/2 focus:outline-none" onclick="selectNEO('apophis')">
+<span class="absolute -inset-3 rounded-full bg-hazard-red/20 animate-ping"></span>
+<span class="relative flex items-center justify-center w-6 h-6 rounded-full bg-hazard-red/30 border border-hazard-red text-hazard-red shadow-[0_0_18px_#F43F5E]">
+<span class="w-2.5 h-2.5 rounded-full bg-hazard-red"></span>
+</span>
+<span class="absolute left-8 top-0 px-2.5 py-1 rounded-md bg-space-950/90 border border-hazard-red/60 text-[11px] font-mono text-white whitespace-nowrap">
+                99942 Apophis <span class="text-hazard-red font-bold">● PHA</span>
+</span>
+</button>
+<!-- 101955 Bennu -->
+<button class="absolute top-[26%] left-[32%] z-30 group -translate-x-1/2 -translate-y-1/2 focus:outline-none" onclick="selectNEO('bennu')">
+<span class="relative flex items-center justify-center w-4 h-4 rounded-full bg-amber-400/20 border border-amber-400 group-hover:scale-125 transition-transform">
+<span class="w-1.5 h-1.5 rounded-full bg-amber-400"></span>
+</span>
+<span class="absolute left-6 -top-1 px-2 py-0.5 rounded bg-space-950/80 border border-white/10 text-[10px] font-mono text-slate-300 group-hover:text-white whitespace-nowrap">
+                101955 Bennu
+              </span>
+</button>
+<!-- 2024 BX1 -->
+<button class="absolute top-[72%] left-[36%] z-30 group -translate-x-1/2 -translate-y-1/2 focus:outline-none" onclick="selectNEO('bx1')">
+<span class="relative flex items-center justify-center w-4 h-4 rounded-full bg-cyan-ice/20 border border-cyan-ice group-hover:scale-125 transition-transform">
+<span class="w-1.5 h-1.5 rounded-full bg-cyan-ice"></span>
+</span>
+<span class="absolute left-6 top-0 px-2 py-0.5 rounded bg-space-950/80 border border-white/10 text-[10px] font-mono text-slate-300 group-hover:text-white whitespace-nowrap">
+                2024 BX1
+              </span>
+</button>
+<!-- 4179 Toutatis -->
+<button class="absolute top-[52%] left-[84%] z-30 group -translate-x-1/2 -translate-y-1/2 focus:outline-none" onclick="selectNEO('toutatis')">
+<span class="relative flex items-center justify-center w-4 h-4 rounded-full bg-slate-400/20 border border-slate-400 group-hover:scale-125 transition-transform">
+<span class="w-1.5 h-1.5 rounded-full bg-slate-300"></span>
+</span>
+<span class="absolute left-6 -top-1 px-2 py-0.5 rounded bg-space-950/80 border border-white/10 text-[10px] font-mono text-slate-300 group-hover:text-white whitespace-nowrap">
+                4179 Toutatis
+              </span>
+</button>
+</div>
+<!-- Single Floating Liquid-Glass Dossier Panel (Right 4 cols) -->
+<div class="lg:col-span-4 liquid-panel-glow rounded-2xl p-6 sm:p-7 relative z-20 space-y-6" id="neo-telemetry-card">
+<div class="flex items-center justify-between border-b border-white/10 pb-3">
+<span class="text-[11px] font-mono uppercase tracking-widest text-cyan-ice">SPECIMEN DOSSIER</span>
+<span class="px-2.5 py-0.5 text-[10px] font-mono rounded bg-hazard-red/20 text-hazard-red border border-hazard-red/40 font-bold uppercase tracking-wide" id="neo-badge">
+                POTENTIALLY HAZARDOUS (PHA)
+              </span>
+</div>
+<div>
+<h3 class="font-display text-3xl font-extrabold text-white tracking-tight" id="neo-name">99942 Apophis</h3>
+<p class="text-xs font-mono text-slate-400 mt-1" id="neo-altname">Designation: 2004 MN4 // CNEOS #2099942</p>
+</div>
+<!-- Dossier Key Metrics (Instrument Sans labels + IBM Plex Mono numbers) -->
+<div class="space-y-3">
+<div class="p-3 rounded-xl bg-space-950/80 border border-white/10 flex justify-between items-center">
+<span class="text-xs text-slate-400 font-sans">Estimated Diameter</span>
+<span class="font-mono text-sm font-semibold text-white" id="neo-diameter">340 m</span>
+</div>
+<div class="p-3 rounded-xl bg-space-950/80 border border-white/10 flex justify-between items-center">
+<span class="text-xs text-slate-400 font-sans">Relative Velocity</span>
+<span class="font-mono text-sm font-semibold text-cyan-glow" id="neo-velocity">30.73 km/s</span>
+</div>
+<div class="p-3 rounded-xl bg-space-950/80 border border-white/10 flex justify-between items-center">
+<span class="text-xs text-slate-400 font-sans">Miss Distance</span>
+<span class="font-mono text-sm font-semibold text-amber-300" id="neo-distance">31,600 km (0.082 LD)</span>
+</div>
+<div class="p-3 rounded-xl bg-space-950/80 border border-white/10 flex justify-between items-center">
+<span class="text-xs text-slate-400 font-sans">Close Approach Epoch</span>
+<span class="font-mono text-sm font-semibold text-slate-200" id="neo-date">2029-Apr-13</span>
+</div>
+<div class="p-3 rounded-xl bg-space-950/80 border border-white/10">
+<div class="text-[11px] text-slate-400 font-sans mb-1">Impact Hazard Assessment</div>
+<div class="text-xs text-slate-200 font-sans leading-relaxed" id="neo-classification">
+                  Level 4 Observation pass beneath geostationary orbital ring (36,000 km). Continuous radar astrometry eliminates keyhole collision risks for 2029.
+                </div>
+</div>
+</div>
+<a class="w-full liquid-button-primary py-3 rounded-xl text-xs font-sans font-semibold tracking-wider uppercase text-center block text-white" href="#risk-lab">
+              Analyze With Risk Lab Classifier →
+            </a>
+</div>
+</div>
+<!-- Bottom Guidance Strip -->
+<div class="relative z-10 flex flex-wrap items-center justify-between text-xs font-mono text-slate-500 border-t border-white/5 pt-3">
+<span class="">SOURCE: NASA JPL HORIZONS / MPC EPHEMERIS</span>
+<span class="">SELECT ANY ORBITAL PIN TO LOAD TARGET TELEMETRY</span>
+</div>
+</div>
+</div>
+</section>
+<!-- END: LiveRadarSection -->
+<!-- BEGIN: DataAnalyticsSection (One Dominant Scatter Field, No 3-Box repetition) -->
+<section class="py-28 px-4 sm:px-6 lg:px-12 relative border-t border-white/5 bg-space-950" data-purpose="data-analytics" id="analytics">
+<div class="max-w-7xl mx-auto space-y-12">
+<!-- Section Header with High-Impact Summary Indicators -->
+<div class="flex flex-col lg:flex-row lg:items-end justify-between gap-8">
+<div class="space-y-3">
+<div class="inline-flex items-center space-x-2 text-xs font-mono text-cyan-neon tracking-wider uppercase">
+<span class="w-2 h-2 rounded-full bg-cyan-glow"></span>
+<span class="">EPHEMERIS POPULATION DYNAMICS</span>
+</div>
+<h2 class="font-display text-4xl sm:text-5xl font-extrabold tracking-tight text-white">READ THE TRAJECTORY</h2>
+<p class="text-slate-400 text-base max-w-xl font-sans">
+            Distribution of 34,812 cataloged bodies correlating relative approach velocity against lunar distance.
+          </p>
+</div>
+<!-- Large Typographic Metrics Floating Without Heavy Box Borders -->
+<div class="flex flex-wrap items-center gap-8 sm:gap-12 border-l border-white/10 pl-6 lg:pl-10">
+<div>
+<div class="text-xs uppercase font-sans text-slate-400 tracking-wider">Cataloged Objects</div>
+<div class="font-mono text-3xl sm:text-4xl font-bold text-white tracking-tight mt-1">34,812</div>
+</div>
+<div>
+<div class="text-xs uppercase font-sans text-hazard-coral tracking-wider flex items-center space-x-1.5">
+<span class="w-1.5 h-1.5 rounded-full bg-hazard-red"></span>
+<span class="">Classified PHA</span>
+</div>
+<div class="font-mono text-3xl sm:text-4xl font-bold text-hazard-red tracking-tight mt-1">2,419</div>
+</div>
+<div>
+<div class="text-xs uppercase font-sans text-cyan-ice tracking-wider">This Week Passes</div>
+<div class="font-mono text-3xl sm:text-4xl font-bold text-cyan-glow tracking-tight mt-1">14</div>
+</div>
+</div>
+</div>
+<!-- ONE DOMINANT SCIENTIFIC SCATTER FIELD: VELOCITY × MISS DISTANCE -->
+<div class="liquid-panel rounded-3xl p-6 sm:p-10 relative overflow-hidden border border-white/10" data-purpose="dominant-scatter-instrument">
+<div class="flex flex-wrap items-center justify-between pb-6 border-b border-white/10 gap-4">
+<div>
+<span class="font-display font-bold text-lg text-white">VELOCITY × MISS DISTANCE (LUNAR DISTANCE)</span>
+<span class="font-mono text-xs text-cyan-ice ml-3 tracking-widest uppercase">// SCATTER PLOT REGRESSION</span>
+</div>
+<div class="flex items-center space-x-6 text-xs font-mono text-slate-400">
+<span class="flex items-center space-x-2"><span class="w-2.5 h-2.5 rounded-full bg-cyan-ice"></span><span class="font-sans">Nominal Flybys</span></span>
+<span class="flex items-center space-x-2"><span class="w-2.5 h-2.5 rounded-full bg-hazard-red"></span><span class="font-sans">PHA Critical Cluster</span></span>
+</div>
+</div>
+<!-- Scatter Canvas Field with Interactive Tooltip Mockup -->
+<div class="relative w-full h-[400px] sm:h-[460px] my-6">
+<!-- Background Axis Grid Lines -->
+<div class="absolute inset-0 grid grid-cols-6 grid-rows-4 opacity-15 pointer-events-none">
+<div class="border-b border-r border-cyan-neon"></div>
+<div class="border-b border-r border-cyan-neon"></div>
+<div class="border-b border-r border-cyan-neon"></div>
+<div class="border-b border-r border-cyan-neon"></div>
+<div class="border-b border-r border-cyan-neon"></div>
+<div class="border-b border-cyan-neon"></div>
+<div class="border-b border-r border-cyan-neon"></div>
+<div class="border-b border-r border-cyan-neon"></div>
+<div class="border-b border-r border-cyan-neon"></div>
+<div class="border-b border-r border-cyan-neon"></div>
+<div class="border-b border-r border-cyan-neon"></div>
+<div class="border-b border-cyan-neon"></div>
+<div class="border-b border-r border-cyan-neon"></div>
+<div class="border-b border-r border-cyan-neon"></div>
+<div class="border-b border-r border-cyan-neon"></div>
+<div class="border-b border-r border-cyan-neon"></div>
+<div class="border-b border-r border-cyan-neon"></div>
+<div class="border-b border-cyan-neon"></div>
+<div class="border-r border-cyan-neon"></div>
+<div class="border-r border-cyan-neon"></div>
+<div class="border-r border-cyan-neon"></div>
+<div class="border-r border-cyan-neon"></div>
+<div class="border-r border-cyan-neon"></div>
+<div></div>
+</div>
+<!-- Constellation Scatter Vector Canvas -->
+<svg class="w-full h-full relative z-10" preserveAspectRatio="none" viewBox="0 0 800 400">
+<!-- Non-linear regression trend curve -->
+<path d="M 40 370 Q 280 280, 500 160 T 780 40" fill="none" stroke="rgba(0, 240, 255, 0.4)" stroke-dasharray="4 4" stroke-width="2"></path>
+<!-- Shaded hazard boundary polygon zone -->
+<polygon fill="rgba(244, 63, 94, 0.08)" points="40,380 40,240 240,240 280,380" stroke="rgba(244, 63, 94, 0.25)" stroke-dasharray="2 2" stroke-width="1"></polygon>
+<text fill="#F43F5E" font-family="'IBM Plex Mono', monospace" font-size="11" opacity="0.8" x="50" y="260">CRITICAL INTERSECTION ZONE (LD &lt; 5.0)</text>
+<!-- Scatter Data Points (Nominal) -->
+<circle cx="90" cy="310" fill="#38BDF8" opacity="0.75" r="3.5"></circle>
+<circle cx="140" cy="270" fill="#38BDF8" opacity="0.8" r="4"></circle>
+<circle cx="180" cy="290" fill="#7DD3FC" opacity="0.7" r="3"></circle>
+<circle cx="230" cy="220" fill="#38BDF8" opacity="0.85" r="4.5"></circle>
+<circle cx="290" cy="260" fill="#38BDF8" opacity="0.6" r="3.5"></circle>
+<circle cx="340" cy="180" fill="#7DD3FC" opacity="0.8" r="4"></circle>
+<circle cx="410" cy="195" fill="#38BDF8" opacity="0.7" r="3"></circle>
+<circle cx="470" cy="140" fill="#38BDF8" opacity="0.9" r="5"></circle>
+<circle cx="530" cy="160" fill="#7DD3FC" opacity="0.65" r="3.5"></circle>
+<circle cx="600" cy="110" fill="#38BDF8" opacity="0.85" r="4"></circle>
+<circle cx="660" cy="85" fill="#7DD3FC" opacity="0.7" r="3"></circle>
+<circle cx="720" cy="65" fill="#38BDF8" opacity="0.9" r="4.5"></circle>
+<!-- High-risk / PHA cluster points -->
+<circle class="animate-pulse" cx="85" cy="340" fill="#F43F5E" opacity="0.95" r="5.5"></circle>
+<circle cx="120" cy="325" fill="#F43F5E" opacity="0.9" r="4.5"></circle>
+<circle cx="160" cy="305" fill="#F59E0B" opacity="0.85" r="5"></circle>
+<circle cx="210" cy="285" fill="#F43F5E" opacity="0.9" r="4.5"></circle>
+</svg>
+<!-- Floating Liquid Inspect Tooltip positioned over Apophis coordinate -->
+<div class="absolute top-[68%] left-[15%] liquid-panel-glow rounded-xl p-3.5 border border-cyan-glow/40 z-20 pointer-events-none transform -translate-y-full shadow-2xl">
+<div class="flex items-center space-x-2 text-[10px] font-mono text-cyan-ice pb-1 border-b border-white/10">
+<span class="w-1.5 h-1.5 rounded-full bg-hazard-red animate-ping"></span>
+<span class="">HOVER TARGET: #99942</span>
+</div>
+<div class="font-display font-bold text-xs text-white mt-1">99942 Apophis (2004 MN4)</div>
+<div class="font-mono text-[11px] text-slate-300 mt-0.5">
+              Dist: <span class="text-amber-300 font-semibold">0.082 LD</span> | Vel: <span class="text-cyan-glow font-semibold">30.73 km/s</span>
+</div>
+</div>
+</div>
+<!-- Scatter Coordinates Axis Footnote & Sub-density distribution curve -->
+<div class="grid grid-cols-1 md:grid-cols-12 gap-6 pt-4 border-t border-white/10 items-center">
+<div class="md:col-span-6 flex justify-between text-xs font-mono text-slate-400">
+<span class="">← 0.0 LD (EARTH PROXIMITY)</span>
+<span class="">MISS DISTANCE</span>
+<span class="">100 LD →</span>
+</div>
+<!-- Integrated Organic Density Curve Indicator -->
+<div class="md:col-span-6 flex items-center justify-end space-x-6 text-xs font-sans text-slate-300">
+<span class="text-slate-400">Absolute Magnitude H Density:</span>
+<div class="w-36 h-6 flex items-end">
+<svg class="w-full h-full" viewBox="0 0 100 24">
+<path d="M 0 22 Q 35 22, 50 4 Q 65 22, 100 22" fill="none" stroke="#00F0FF" stroke-width="1.8"></path>
+</svg>
+</div>
+<span class="font-mono text-cyan-ice text-xs">Peak H = 21.8</span>
+</div>
+</div>
+</div>
+</div>
+</section>
+<!-- END: DataAnalyticsSection -->
+<!-- BEGIN: RiskLabSection (The 2nd Wow Moment: Radial Analytical Specimen) -->
+<section class="py-28 px-4 sm:px-6 lg:px-12 relative border-t border-white/5 bg-space-950 overflow-hidden" data-purpose="risk-lab" id="risk-lab">
+<div class="max-w-7xl mx-auto space-y-14">
+<!-- Section Header -->
+<div class="text-center max-w-3xl mx-auto space-y-3">
+<div class="inline-flex items-center space-x-2 text-xs font-mono text-cyan-neon tracking-wider uppercase">
+<span class="w-2 h-2 rounded-full bg-cyan-glow"></span>
+<span class="">SUPERVISED SCIKIT-LEARN RANDOM FOREST</span>
+</div>
+<h2 class="font-display text-4xl sm:text-5xl lg:text-6xl font-extrabold tracking-tight text-white leading-tight">
+          WHEN DOES AN OBJECT BECOME A SIGNAL?
+        </h2>
+<p class="text-slate-300 text-base font-sans max-w-2xl mx-auto leading-relaxed">
+          The platform evaluates multi-dimensional orbital kinematic tensors to isolate potential impactors from inert celestial debris.
+        </p>
+</div>
+<!-- RADIAL SCIENTIFIC INSTRUMENT: Center Specimen with Radiating Feature Vectors -->
+<div class="liquid-panel rounded-3xl p-8 sm:p-12 relative overflow-hidden border border-white/10" data-purpose="radial-risk-instrument">
+<!-- Ambient radial glow behind specimen -->
+<div class="absolute left-1/2 top-1/2 -translate-x-1/2 -translate-y-1/2 w-[500px] h-[500px] bg-cyan-neon/10 rounded-full blur-[140px] pointer-events-none"></div>
+<div class="grid grid-cols-1 lg:grid-cols-12 gap-10 items-center relative z-10">
+<!-- 4 Radiating Feature Anchors (Spans 4 cols) -->
+<div class="lg:col-span-4 space-y-4">
+<div class="text-xs uppercase font-mono tracking-widest text-cyan-ice mb-3">
+              MEASURED FEATURE VECTORS:
+            </div>
+<!-- Anchor 1 -->
+<div class="p-4 rounded-2xl liquid-panel border-l-4 border-l-cyan-glow hover:border-white transition-all">
+<div class="flex justify-between items-center text-xs">
+<span class="font-sans text-slate-300 font-medium">Miss Distance</span>
+<span class="font-mono text-cyan-neon font-semibold">34% WEIGHT</span>
+</div>
+<div class="font-mono text-base font-bold text-white mt-1">0.082 LD <span class="text-xs font-normal text-slate-400">(31,600 km)</span></div>
+</div>
+<!-- Anchor 2 -->
+<div class="p-4 rounded-2xl liquid-panel border-l-4 border-l-cyan-neon hover:border-white transition-all">
+<div class="flex justify-between items-center text-xs">
+<span class="font-sans text-slate-300 font-medium">Relative Velocity</span>
+<span class="font-mono text-cyan-neon font-semibold">28% WEIGHT</span>
+</div>
+<div class="font-mono text-base font-bold text-white mt-1">30.73 km/s <span class="text-xs font-normal text-slate-400">(110,628 km/h)</span></div>
+</div>
+<!-- Anchor 3 -->
+<div class="p-4 rounded-2xl liquid-panel border-l-4 border-l-blue-400 hover:border-white transition-all">
+<div class="flex justify-between items-center text-xs">
+<span class="font-sans text-slate-300 font-medium">Estimated Diameter</span>
+<span class="font-mono text-cyan-neon font-semibold">22% WEIGHT</span>
+</div>
+<div class="font-mono text-base font-bold text-white mt-1">340 meters <span class="text-xs font-normal text-slate-400">(0.34 km)</span></div>
+</div>
+<!-- Anchor 4 -->
+<div class="p-4 rounded-2xl liquid-panel border-l-4 border-l-indigo-400 hover:border-white transition-all">
+<div class="flex justify-between items-center text-xs">
+<span class="font-sans text-slate-300 font-medium">Absolute Magnitude</span>
+<span class="font-mono text-cyan-neon font-semibold">16% WEIGHT</span>
+</div>
+<div class="font-mono text-base font-bold text-white mt-1">H 19.2 <span class="text-xs font-normal text-slate-400">(Criterion &lt; 22.0)</span></div>
+</div>
+</div>
+<!-- Central Specimen Sphere & Geometric Coordinate Rings (Spans 4 cols) -->
+<div class="lg:col-span-4 flex flex-col items-center justify-center py-6">
+<div class="relative w-72 h-72 flex items-center justify-center">
+<!-- Outer rotating gimbal ring -->
+<div class="absolute inset-0 rounded-full border border-cyan-neon/30 animate-spin-slow"></div>
+<!-- Inner reverse spinning dashed ring -->
+<div class="absolute inset-4 rounded-full border border-dashed border-cyan-glow/30 animate-spin-reverse"></div>
+<!-- Luminous Ray Lines radiating to anchors -->
+<svg class="absolute inset-0 w-full h-full pointer-events-none" viewBox="0 0 288 288">
+<line opacity="0.6" stroke="#00F0FF" stroke-dasharray="2 3" stroke-width="1" x1="144" x2="20" y1="144" y2="60"></line>
+<line opacity="0.6" stroke="#00F0FF" stroke-dasharray="2 3" stroke-width="1" x1="144" x2="20" y1="144" y2="140"></line>
+<line opacity="0.6" stroke="#00F0FF" stroke-dasharray="2 3" stroke-width="1" x1="144" x2="20" y1="144" y2="220"></line>
+<line opacity="0.8" stroke="#F43F5E" stroke-dasharray="3 3" stroke-width="1.5" x1="144" x2="260" y1="144" y2="144"></line>
+</svg>
+<!-- Central 3D Scientific Asteroid Polyhedral Specimen Sphere -->
+<div class="relative w-40 h-40 rounded-full bg-gradient-to-br from-cyan-900/60 via-slate-900 to-space-950 border border-cyan-glow/60 shadow-[0_0_50px_rgba(0,240,255,0.35)] flex items-center justify-center backdrop-blur-md animate-float-subtle">
+<!-- Lat/Long Wireframe curves -->
+<div class="absolute inset-2 rounded-full border border-cyan-neon/20 transform rotate-45"></div>
+<div class="absolute inset-2 rounded-full border border-cyan-neon/20 transform -rotate-45"></div>
+<div class="text-center space-y-0.5 z-10">
+<span class="font-mono text-[10px] text-cyan-ice block tracking-widest">SPECIMEN</span>
+<span class="font-display font-extrabold text-sm text-white block">APOPHIS</span>
+<span class="font-mono text-[10px] text-hazard-red font-semibold block">PHA CRITICAL</span>
+</div>
+</div>
+<!-- Vector Tag -->
+<div class="absolute -bottom-2 px-3 py-0.5 rounded-full bg-space-950 border border-cyan-neon/40 text-[10px] font-mono text-cyan-ice">
+                TENSOR INTERSECTION
+              </div>
+</div>
+</div>
+<!-- Model Inference Output & Probability Arc Gauge (Spans 4 cols) -->
+<div class="lg:col-span-4 space-y-6">
+<!-- Model Inference Panel -->
+<div class="liquid-panel rounded-2xl p-6 border-l-4 border-l-hazard-red space-y-4">
+<div class="flex items-center justify-between">
+<span class="text-xs font-mono text-hazard-coral flex items-center space-x-2">
+<span class="w-2 h-2 rounded-full bg-hazard-red animate-pulse"></span>
+<span class="font-semibold uppercase tracking-wider">MODEL INFERENCE</span>
+</span>
+<span class="font-mono text-xs text-slate-300">SCIKIT-LEARN 1.4</span>
+</div>
+<div class="font-display font-bold text-2xl text-white tracking-tight">
+                POTENTIALLY HAZARDOUS ASTEROID (PHA)
+              </div>
+<p class="text-xs font-sans text-slate-300 leading-relaxed">
+                Earth MOID ≤ 0.05 AU threshold met concurrently with absolute magnitude criterion H ≤ 22.0.
+              </p>
+<!-- Probability Arc Gauge Display -->
+<div class="pt-3 border-t border-white/10 flex items-center justify-between">
+<div class="space-y-0.5">
+<div class="text-[11px] font-sans text-slate-400">Class Probability</div>
+<div class="font-mono text-3xl font-bold text-white">98.4%</div>
+</div>
+<!-- Mini Arc SVG -->
+<div class="w-16 h-16 relative flex items-center justify-center">
+<svg class="w-full h-full transform -rotate-90" viewBox="0 0 36 36">
+<path class="text-slate-800" d="M18 2.0845 a 15.9155 15.9155 0 0 1 0 31.831 a 15.9155 15.9155 0 0 1 0 -31.831" fill="none" stroke="currentColor" stroke-width="3"></path>
+<path class="text-hazard-red" d="M18 2.0845 a 15.9155 15.9155 0 0 1 0 31.831 a 15.9155 15.9155 0 0 1 0 -31.831" fill="none" stroke="currentColor" stroke-dasharray="98, 100" stroke-linecap="round" stroke-width="3"></path>
+</svg>
+<span class="absolute text-[10px] font-mono text-hazard-coral font-bold">PHA</span>
+</div>
+</div>
+</div>
+<!-- Validation Benchmarks -->
+<div class="liquid-panel rounded-2xl p-4 border border-white/10 flex items-center justify-between text-xs">
+<span class="text-slate-400 font-sans">Precision Benchmark</span>
+<span class="font-mono text-cyan-glow font-bold">98.4%</span>
+<span class="text-slate-600">|</span>
+<span class="text-slate-400 font-sans">Recall Benchmark</span>
+<span class="font-mono text-cyan-ice font-bold">96.8%</span>
+</div>
+</div>
+</div>
+</div>
+</div>
+</section>
+<!-- END: RiskLabSection -->
+<!-- BEGIN: ExplainabilitySection (Vertical Push-and-Pull AI Force Waterfall) -->
+<section class="py-28 px-4 sm:px-6 lg:px-12 relative border-t border-white/5 bg-space-950" data-purpose="shap-explainability" id="explainability">
+<div class="max-w-7xl mx-auto space-y-12">
+<!-- Header -->
+<div class="flex flex-col md:flex-row md:items-end justify-between gap-6 pb-2">
+<div class="space-y-2">
+<div class="inline-flex items-center space-x-2 text-xs font-mono text-cyan-neon tracking-wider uppercase">
+<span class="w-2 h-2 rounded-full bg-cyan-glow"></span>
+<span class="">SHAPLEY FORCE VECTOR ANALYSIS</span>
+</div>
+<h2 class="font-display text-4xl sm:text-5xl font-extrabold tracking-tight text-white">WHY THIS OBJECT?</h2>
+</div>
+<p class="text-sm font-sans text-slate-300 max-w-lg leading-relaxed">
+          The model does not simply label an object. It evaluates measurable physical forces, kinematic uncertainty, and feature contribution weights via SHAP (SHapley Additive exPlanations).
+        </p>
+</div>
+<!-- Vertical AI Explainability Instrument -->
+<div class="liquid-panel rounded-3xl p-6 sm:p-10 border border-white/10 space-y-8" data-purpose="shap-waterfall-instrument">
+<!-- Legend Strip -->
+<div class="flex flex-wrap items-center justify-between pb-4 border-b border-white/10 gap-3 text-xs">
+<span class="font-mono text-slate-300">SHAP ATTRIBUTION // TARGET: 99942 APOPHIS</span>
+<div class="flex items-center space-x-6 font-sans">
+<span class="flex items-center space-x-2"><span class="w-3 h-3 rounded bg-hazard-coral"></span><span class="text-slate-300">Increases Risk Score (+f(x))</span></span>
+<span class="flex items-center space-x-2"><span class="w-3 h-3 rounded bg-cyan-glow"></span><span class="text-slate-300">Reduces Risk Score (-f(x))</span></span>
+</div>
+</div>
+<!-- Push-and-Pull Force Vectors -->
+<div class="space-y-6">
+<!-- Vector 1 -->
+<div class="space-y-2">
+<div class="flex justify-between items-center text-xs">
+<span class="font-sans font-medium text-white">Miss Distance: 0.082 LD (Threshold ≤ 0.05 AU)</span>
+<span class="font-mono font-bold text-hazard-coral">+0.48 SHAP</span>
+</div>
+<div class="w-full bg-space-950 rounded-full h-3.5 border border-white/10 overflow-hidden flex">
+<div class="w-[28%] bg-transparent"></div>
+<div class="w-[50%] bg-gradient-to-r from-hazard-amber to-hazard-coral rounded-full"></div>
+</div>
+</div>
+<!-- Vector 2 -->
+<div class="space-y-2">
+<div class="flex justify-between items-center text-xs">
+<span class="font-sans font-medium text-white">Estimated Diameter: 340 m (Kinetic potential)</span>
+<span class="font-mono font-bold text-hazard-coral">+0.32 SHAP</span>
+</div>
+<div class="w-full bg-space-950 rounded-full h-3.5 border border-white/10 overflow-hidden flex">
+<div class="w-[42%] bg-transparent"></div>
+<div class="w-[34%] bg-gradient-to-r from-amber-500 to-hazard-coral rounded-full"></div>
+</div>
+</div>
+<!-- Vector 3 -->
+<div class="space-y-2">
+<div class="flex justify-between items-center text-xs">
+<span class="font-sans font-medium text-white">Absolute Magnitude H = 19.2 (Sub-22 Criterion)</span>
+<span class="font-mono font-bold text-hazard-amber">+0.14 SHAP</span>
+</div>
+<div class="w-full bg-space-950 rounded-full h-3.5 border border-white/10 overflow-hidden flex">
+<div class="w-[58%] bg-transparent"></div>
+<div class="w-[16%] bg-hazard-amber rounded-full"></div>
+</div>
+</div>
+<!-- Vector 4 (Mitigating negative push) -->
+<div class="space-y-2">
+<div class="flex justify-between items-center text-xs">
+<span class="font-sans font-medium text-white">Orbital Condition Code 0 (High radar astrometry precision)</span>
+<span class="font-mono font-bold text-cyan-glow">-0.12 SHAP</span>
+</div>
+<div class="w-full bg-space-950 rounded-full h-3.5 border border-white/10 overflow-hidden flex">
+<div class="w-[18%] bg-transparent"></div>
+<div class="w-[14%] bg-gradient-to-r from-cyan-glow to-blue-500 rounded-full"></div>
+</div>
+</div>
+</div>
+<!-- Explainability Footer -->
+<div class="pt-6 border-t border-white/10 flex flex-wrap items-center justify-between text-xs font-mono text-slate-400 gap-4">
+<div class="">BASE PROBABILITY E[f(x)]: 0.068</div>
+<div class="flex items-center space-x-3 text-white font-sans">
+<span class="">Predicted Risk Probability:</span>
+<span class="px-3 py-1 rounded-full bg-hazard-red/20 text-hazard-red border border-hazard-red/40 font-mono font-bold text-sm">
+              0.882 (Critical)
+            </span>
+</div>
+</div>
+</div>
+</div>
+</section>
+<!-- END: ExplainabilitySection -->
+<!-- BEGIN: MethodologySection (Continuous Flowing Transformation Conduit) -->
+<section class="py-28 px-4 sm:px-6 lg:px-12 relative border-t border-white/5 bg-space-950" data-purpose="methodology-pipeline" id="methodology">
+<div class="max-w-7xl mx-auto space-y-16">
+<!-- Section Header -->
+<div class="text-center max-w-2xl mx-auto space-y-3">
+<div class="inline-flex items-center space-x-2 text-xs font-mono text-cyan-neon tracking-wider uppercase">
+<span class="w-2 h-2 rounded-full bg-cyan-glow"></span>
+<span class="">TRANSFORMATION PIPELINE</span>
+</div>
+<h2 class="font-display text-4xl sm:text-5xl font-extrabold tracking-tight text-white">FROM DATA TO SIGNAL</h2>
+<p class="text-slate-300 text-base font-sans leading-relaxed">
+          Continuous ingestion from NASA Jet Propulsion Laboratory to transparent real-time browser inference.
+        </p>
+</div>
+<!-- CONTINUOUS UNDULATING HORIZONTAL DATA CONDUIT (No 5 boxed repetitive cards) -->
+<div class="relative py-8" data-purpose="continuous-data-conduit">
+<!-- Connecting Luminous Conduit Beam spanning all 5 stages -->
+<div class="hidden md:block absolute top-[52px] left-8 right-8 h-[2px] pipeline-beam rounded-full z-0"></div>
+<!-- 5 Continuous Stages -->
+<div class="grid grid-cols-1 md:grid-cols-5 gap-8 relative z-10">
+<!-- Stage 01 -->
+<div class="space-y-4 text-left group">
+<div class="flex items-center space-x-3">
+<div class="w-12 h-12 rounded-2xl liquid-panel border border-cyan-glow/50 flex items-center justify-center font-mono font-bold text-cyan-glow text-sm shadow-[0_0_16px_rgba(0,240,255,0.25)] group-hover:scale-110 transition-transform">
+                01
+              </div>
+<span class="font-mono text-[10px] text-cyan-ice uppercase tracking-wider block md:hidden">STAGE 1</span>
+</div>
+<div>
+<h3 class="font-display font-bold text-base text-white uppercase tracking-tight">FETCH</h3>
+<p class="text-xs font-sans text-slate-400 mt-1 leading-relaxed">
+                NASA NeoWs REST API ingestion &amp; daily delta polling.
+              </p>
+</div>
+<div class="text-[10px] font-mono text-cyan-neon/80 uppercase">
+              HTTP / REST JSON
+            </div>
+</div>
+<!-- Stage 02 -->
+<div class="space-y-4 text-left group">
+<div class="flex items-center space-x-3">
+<div class="w-12 h-12 rounded-2xl liquid-panel border border-cyan-neon/50 flex items-center justify-center font-mono font-bold text-cyan-neon text-sm shadow-[0_0_16px_rgba(56,189,248,0.25)] group-hover:scale-110 transition-transform">
+                02
+              </div>
+<span class="font-mono text-[10px] text-cyan-ice uppercase tracking-wider block md:hidden">STAGE 2</span>
+</div>
+<div>
+<h3 class="font-display font-bold text-base text-white uppercase tracking-tight">NORMALIZE</h3>
+<p class="text-xs font-sans text-slate-400 mt-1 leading-relaxed">
+                Astrometric projection into Heliocentric J2000 barycenter.
+              </p>
+</div>
+<div class="text-[10px] font-mono text-cyan-neon/80 uppercase">
+              ASTROPY / NUMPY
+            </div>
+</div>
+<!-- Stage 03 -->
+<div class="space-y-4 text-left group">
+<div class="flex items-center space-x-3">
+<div class="w-12 h-12 rounded-2xl liquid-panel border border-cyan-ice/50 flex items-center justify-center font-mono font-bold text-cyan-ice text-sm shadow-[0_0_16px_rgba(125,211,252,0.25)] group-hover:scale-110 transition-transform">
+                03
+              </div>
+<span class="font-mono text-[10px] text-cyan-ice uppercase tracking-wider block md:hidden">STAGE 3</span>
+</div>
+<div>
+<h3 class="font-display font-bold text-base text-white uppercase tracking-tight">ENGINEER</h3>
+<p class="text-xs font-sans text-slate-400 mt-1 leading-relaxed">
+                Eccentricity, MOID threshold and kinetic energy calculus.
+              </p>
+</div>
+<div class="text-[10px] font-mono text-cyan-neon/80 uppercase">
+              FEATURE PIPELINE
+            </div>
+</div>
+<!-- Stage 04 -->
+<div class="space-y-4 text-left group">
+<div class="flex items-center space-x-3">
+<div class="w-12 h-12 rounded-2xl liquid-panel border border-blue-400/50 flex items-center justify-center font-mono font-bold text-blue-400 text-sm shadow-[0_0_16px_rgba(96,165,250,0.25)] group-hover:scale-110 transition-transform">
+                04
+              </div>
+<span class="font-mono text-[10px] text-cyan-ice uppercase tracking-wider block md:hidden">STAGE 4</span>
+</div>
+<div>
+<h3 class="font-display font-bold text-base text-white uppercase tracking-tight">CLASSIFIER</h3>
+<p class="text-xs font-sans text-slate-400 mt-1 leading-relaxed">
+                Supervised Random Forest trained on CNEOS impact records.
+              </p>
+</div>
+<div class="text-[10px] font-mono text-cyan-neon/80 uppercase">
+              SCIKIT-LEARN 1.4
+            </div>
+</div>
+<!-- Stage 05 -->
+<div class="space-y-4 text-left group">
+<div class="flex items-center space-x-3">
+<div class="w-12 h-12 rounded-2xl liquid-panel border border-emerald-400/50 flex items-center justify-center font-mono font-bold text-emerald-400 text-sm shadow-[0_0_16px_rgba(16,185,129,0.25)] group-hover:scale-110 transition-transform">
+                05
+              </div>
+<span class="font-mono text-[10px] text-cyan-ice uppercase tracking-wider block md:hidden">STAGE 5</span>
+</div>
+<div>
+<h3 class="font-display font-bold text-base text-white uppercase tracking-tight">EXPLAIN</h3>
+<p class="text-xs font-sans text-slate-400 mt-1 leading-relaxed">
+                SHAP attribution values served through client browser API.
+              </p>
+</div>
+<div class="text-[10px] font-mono text-cyan-neon/80 uppercase">
+              CLIENT SHAP ENGINE
+            </div>
+</div>
+</div>
+</div>
+</div>
+</section>
+<!-- END: MethodologySection -->
+</main>
+<!-- BEGIN: ScientificArchiveFooter -->
+<footer class="border-t border-white/10 bg-space-950 py-16 px-4 sm:px-6 lg:px-12 text-slate-400 text-xs font-sans" data-purpose="scientific-footer">
+<div class="max-w-7xl mx-auto space-y-12">
+<div class="grid grid-cols-1 md:grid-cols-12 gap-8 items-start">
+<!-- Left: Brand / Statement -->
+<div class="md:col-span-4 space-y-3">
+<div class="flex items-center space-x-2 text-white font-display font-extrabold tracking-[0.2em] text-sm">
+<span class="w-2.5 h-2.5 rounded-full bg-cyan-glow"></span>
+<span class="">NEO-SCOPE RESEARCH ARCHIVE</span>
+</div>
+<p class="text-slate-400 leading-relaxed font-sans text-xs">
+          Open telemetry visualizer and machine learning risk observatory. Data courtesy of NASA JPL Center for Near-Earth Object Studies (CNEOS) and Minor Planet Center (MPC).
+        </p>
+</div>
+<!-- Links Center -->
+<div class="md:col-span-4 grid grid-cols-2 gap-4">
+<div class="space-y-2">
+<div class="text-white font-sans font-semibold uppercase tracking-wider text-[11px]">Primary Sources</div>
+<ul class="space-y-1.5 text-slate-400 text-xs font-sans">
+<li class=""><a class="hover:text-cyan-glow transition-colors" href="https://cneos.jpl.nasa.gov/" rel="noopener" target="_blank">NASA CNEOS API</a></li>
+<li class=""><a class="hover:text-cyan-glow transition-colors" href="https://ssd.jpl.nasa.gov/horizons/" rel="noopener" target="_blank">JPL Horizons</a></li>
+<li class=""><a class="hover:text-cyan-glow transition-colors" href="https://minorplanetcenter.net/" rel="noopener" target="_blank">Minor Planet Center</a></li>
+</ul>
+</div>
+<div class="space-y-2">
+<div class="text-white font-sans font-semibold uppercase tracking-wider text-[11px]">Platform Specs</div>
+<ul class="space-y-1.5 text-slate-400 text-xs font-mono">
+<li class="">Latency: 28 ms</li>
+<li class="">Epoch: J2000.0</li>
+<li class="">Ref: IAU WGNEO</li>
+</ul>
+</div>
+</div>
+<!-- Right: Health Status Indicator -->
+<div class="md:col-span-4 liquid-panel rounded-2xl p-4 border border-white/10 space-y-2">
+<div class="flex items-center justify-between">
+<span class="text-white font-sans font-semibold text-xs">SERVICE HEALTH</span>
+<span class="flex items-center space-x-1.5 text-hazard-emerald text-xs font-sans">
+<span class="w-2 h-2 rounded-full bg-hazard-emerald animate-pulse"></span>
+<span class="">ALL SYSTEMS NOMINAL</span>
+</span>
+</div>
+<div class="text-[11px] text-slate-400 font-mono">
+          POLLING INTERVAL: 10 MINUTE DELTAS<br>
+          INGESTION: <span id="current-utc-time" class="">2026-10-03 06:59:02 UTC</span>
+</div>
+</div>
+</div>
+<!-- Bottom Disclaimer -->
+<div class="pt-8 border-t border-white/5 flex flex-col sm:flex-row items-center justify-between text-xs text-slate-500 gap-4">
+<div class="">
+        © 2026 NEO-SCOPE. Developed for scientific communication &amp; planetary defense awareness.
+      </div>
+<div class="flex items-center space-x-6 text-slate-400">
+<a class="hover:text-cyan-glow transition-colors" href="#">Observational Access Terms</a>
+<a class="hover:text-cyan-glow transition-colors" href="#">API Docs</a>
+<a class="hover:text-cyan-glow transition-colors" href="#">GitHub Repository</a>
+</div>
+</div>
+</div>
+</footer>
+<!-- END: ScientificArchiveFooter -->
+<!-- JavaScript: Telemetry Selector Interactivity -->
+<script data-purpose="neo-catalog-controller">
+  const neoDatabase = {
+    apophis: {
+      name: "99942 Apophis",
+      alt: "Designation: 2004 MN4 // CNEOS #2099942",
+      diameter: "340 m",
+      velocity: "30.73 km/s",
+      distance: "31,600 km (0.082 LD)",
+      date: "2029-Apr-13",
+      badge: "POTENTIALLY HAZARDOUS (PHA)",
+      badgeClass: "bg-hazard-red/20 text-hazard-red border-hazard-red/40",
+      classification: "Level 4 Observation pass beneath geostationary orbital ring (36,000 km). Continuous radar astrometry eliminates keyhole collision risks for 2029."
+    },
+    bx1: {
+      name: "2024 BX1",
+      alt: "Designation: Sar2736 // Bolide Atmospheric Event",
+      diameter: "1 m (~3.3 ft)",
+      velocity: "15.20 km/s",
+      distance: "0.00 km (Atmospheric Impact)",
+      date: "2024-Jan-21",
+      badge: "ATMOSPHERIC BOLIDE",
+      badgeClass: "bg-cyan-ice/20 text-cyan-ice border-cyan-ice/40",
+      classification: "Disintegrated harmlessly in upper stratosphere over Berlin, Germany. Pure scientific recovery specimen."
+    },
+    bennu: {
+      name: "101955 Bennu",
+      alt: "Designation: 1999 RQ36 // OSIRIS-REx Specimen Target",
+      diameter: "492 m",
+      velocity: "27.80 km/s",
+      distance: "750,000 km (1.95 LD)",
+      date: "2060-Sep-23",
+      badge: "HIGH INTEREST (PHA)",
+      badgeClass: "bg-amber-400/20 text-amber-400 border-amber-400/40",
+      classification: "Cumulative impact probability 1-in-1,750 between years 2178 and 2290. OSIRIS-REx physical sample returned safely."
+    },
+    toutatis: {
+      name: "4179 Toutatis",
+      alt: "Designation: 1989 AC // Chaotic 3:1 Resonance",
+      diameter: "5,400 m (5.4 km)",
+      velocity: "37.50 km/s",
+      distance: "6.9M km (18.0 LD)",
+      date: "2069-Nov-05",
+      badge: "POTENTIALLY HAZARDOUS (PHA)",
+      badgeClass: "bg-hazard-red/20 text-hazard-red border-hazard-red/40",
+      classification: "Elongated contact binary undergoing non-principal axis rotation in chaotic resonance."
+    }
+  };
+
+  function selectNEO(id) {
+    const data = neoDatabase[id];
+    if (!data) return;
+
+    document.getElementById('neo-name').innerText = data.name;
+    document.getElementById('neo-altname').innerText = data.alt;
+    document.getElementById('neo-diameter').innerText = data.diameter;
+    document.getElementById('neo-velocity').innerText = data.velocity;
+    document.getElementById('neo-distance').innerText = data.distance;
+    document.getElementById('neo-date').innerText = data.date;
+    document.getElementById('neo-classification').innerText = data.classification;
+
+    const badge = document.getElementById('neo-badge');
+    badge.innerText = data.badge;
+    badge.className = `px-2.5 py-0.5 text-[10px] font-mono rounded font-bold uppercase tracking-wide border ${data.badgeClass}`;
+
+    const card = document.getElementById('neo-telemetry-card');
+    card.classList.add('border-cyan-glow');
+    setTimeout(() => {
+      card.classList.remove('border-cyan-glow');
+    }, 600);
+  }
+</script>
+<!-- Live UTC Clock -->
+<script data-purpose="utc-clock">
+  function updateClock() {
+    const el = document.getElementById('current-utc-time');
+    if (el) {
+      const now = new Date();
+      el.innerText = now.toISOString().replace('T', ' ').substring(0, 19) + ' UTC';
+    }
+  }
+  setInterval(updateClock, 1000);
+</script>
+
+
+</body></html>
